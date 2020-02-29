@@ -51,6 +51,8 @@ int main(void)
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE; // use my IP
+    FILE *json;
+    json = fopen("/var/www/html/chat.json","r+");
 
     if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
@@ -114,6 +116,8 @@ int main(void)
             get_in_addr((struct sockaddr *)&their_addr),
             s, sizeof s);
         printf("server: got connection from %s\n", s);
+        fprintf(json,"%s\n",s);
+        fclose(json);
 
         if (!fork()) { // this is the child process
             close(sockfd); // child doesn't need the listener
