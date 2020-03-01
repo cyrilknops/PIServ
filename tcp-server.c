@@ -117,7 +117,13 @@ int main(void)
             s, sizeof s);
         printf("server: got connection from %s\n", s);
         if (!fork()) { // this is the child process
-            close(sockfd); // child doesn't need the listener
+            //close(sockfd); // child doesn't need the listener
+            if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+                perror("recv");
+                exit(1);
+            }
+            buf[numbytes] = '\0';
+            printf("client send: '%s'\n",buf);
             if (send(new_fd, "Hello, world!", 13, 0) == -1)
                 perror("send");
             fprintf(json,"%s\n",s);
