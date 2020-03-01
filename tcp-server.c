@@ -130,7 +130,7 @@ int main(void)
                 perror("send");
             fprintf(json,"%s\n",s);
             //close(new_fd);
-            exit(0);
+            //exit(0);
         }
         close(new_fd);  // parent doesn't need this
     }
