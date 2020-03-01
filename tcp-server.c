@@ -132,7 +132,7 @@ int main(void)
             //close(new_fd);
             //exit(0);
         }
-        close(new_fd);  // parent doesn't need this
+        //close(new_fd);  // parent doesn't need this
     }
     fclose(json);
     return 0;
