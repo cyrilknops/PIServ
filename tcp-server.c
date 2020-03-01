@@ -14,6 +14,7 @@
 #define PORT "24055"  // the port users will be connecting to
 
 #define BACKLOG 10   // how many pending connections queue will hold
+#define MAXDATASIZE 100 //max number of bytes we can get at once
 
 void sigchld_handler(int s)
 {
@@ -38,7 +39,7 @@ void *get_in_addr(struct sockaddr *sa)
 
 int main(void)
 {
-    int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
+    int sockfd, new_fd, numbytes;  // listen on sock_fd, new connection on new_fd
     struct addrinfo hints, *servinfo, *p;
     struct sockaddr_storage their_addr; // connector's address information
     socklen_t sin_size;
@@ -46,6 +47,7 @@ int main(void)
     int yes=1;
     char s[INET6_ADDRSTRLEN];
     int rv;
+    char buf[MAXDATASIZE];
 
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
