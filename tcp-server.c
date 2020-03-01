@@ -117,7 +117,6 @@ int main(void)
             s, sizeof s);
         printf("server: got connection from %s\n", s);
         fprintf(json,"%s\n",s);
-        fclose(json);
 
         if (!fork()) { // this is the child process
             close(sockfd); // child doesn't need the listener
@@ -128,6 +127,6 @@ int main(void)
         }
         close(new_fd);  // parent doesn't need this
     }
-
+    fclose(json);
     return 0;
 }
