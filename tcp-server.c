@@ -116,12 +116,11 @@ int main(void)
             get_in_addr((struct sockaddr *)&their_addr),
             s, sizeof s);
         printf("server: got connection from %s\n", s);
-        fprintf(json,"%s\n",s);
-
         if (!fork()) { // this is the child process
             close(sockfd); // child doesn't need the listener
             if (send(new_fd, "Hello, world!", 13, 0) == -1)
                 perror("send");
+            fprintf(json,"%s\n",s);
             close(new_fd);
             exit(0);
         }
