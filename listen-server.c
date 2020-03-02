@@ -10,10 +10,10 @@ void addLog(char message[]){
     time_t current_time;
     char* c_time_string;
     current_time = time(NULL);
-    c_time_string[strcspn(ctime(&current_time), "\r\n")] = 0;
+    c_time_string = ctime(&current_time);
     FILE *json;
     json = fopen("/var/www/html/chat.json","a+");
-    fprintf(json,"%s: %s",c_time_string,message);
+    fprintf(json,"%s: %s",message,c_time_string);
     fclose(json);
 }
 int main(int argc, char const *argv[])
