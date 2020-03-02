@@ -167,7 +167,7 @@ int main(int argc , char *argv[])
                     {
                         perror("send");
                     }
-                    if (((valread = read( new_socket , buffer, 1024)) == 0)&& client_nam)
+                    if (((valread = read( new_socket , buffer, 1024)) == 0))
                     {
                         perror("send");
                     }else{
