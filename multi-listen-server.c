@@ -27,7 +27,7 @@ int main(int argc , char *argv[])
     fd_set readfds;
 
     //a message  
-    char *message = "ECHO Daemon v1.0 \r\n";
+    char *message = "CHAT Daemon v1.0 \r\n";
 
     //initialise all client_socket[] to 0 so not checked  
     for (i = 0; i < max_clients; i++)
@@ -171,7 +171,9 @@ int main(int argc , char *argv[])
                     //set the string terminating NULL byte on the end  
                     //of the data read  
                     buffer[valread] = '\0';
-                    send(sd , buffer , strlen(buffer) , 0 );
+                    for (i = 0; i < max_clients; i++) {
+                        send(client_socket[i], buffer, strlen(buffer), 0);
+                    }
                 }
             }
         }
