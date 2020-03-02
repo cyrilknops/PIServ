@@ -211,7 +211,7 @@ int main(int argc , char *argv[])
                     //set the string terminating NULL byte on the end  
                     //of the data read  
                     buffer[valread] = '\0';
-                    printf("Send by %s", client_name[user])
+                    printf("Send by %s", client_name[user]);
                     addLog(buffer, client_name[user]);
                     for (i = 0; i < max_clients; i++) {
                         if(i != user) {
