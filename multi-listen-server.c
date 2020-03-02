@@ -34,7 +34,8 @@ int main(int argc , char *argv[])
     int max_sd;
     struct sockaddr_in address;
 
-    char buffer[1025];  //data buffer of 1K  
+    char buffer[1025];  //data buffer of 1K
+    char s[INET6_ADDRSTRLEN];
 
     //set of socket descriptors  
     fd_set readfds;
@@ -132,10 +133,13 @@ int main(int argc , char *argv[])
                 exit(EXIT_FAILURE);
             }
 
-            //inform user of socket number - used in send and receive commands  
-            printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , inet_ntoa(address.sin_addr) , ntohs
-                    (address.sin_port));
+            //inform user of socket number - used in send and receive commands
 
+            inet_ntop(their_addr.ss_family,
+                      get_in_addr((struct sockaddr *)&addrlen),
+                      s, sizeof s);
+            //printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , inet_ntoa(address.sin_addr) , ntohs (address.sin_port));
+            printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , s , ntohs (address.sin_port));
             //send new connection greeting message  
             if( send(new_socket, message, strlen(message), 0) != strlen(message) )
             {
