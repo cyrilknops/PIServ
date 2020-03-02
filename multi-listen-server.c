@@ -127,9 +127,9 @@ int main(int argc , char *argv[])
                 perror("accept");
                 exit(EXIT_FAILURE);
             }
-
+            inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
             //inform user of socket number - used in send and receive commands  
-            printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s); , ntohs
+            printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , inet_ntop(their_addr.ss_family, s , ntohs
                     (address.sin_port));
 
             //send new connection greeting message  
