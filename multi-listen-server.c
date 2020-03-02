@@ -157,7 +157,7 @@ int main(int argc , char *argv[])
             {
                 perror("send");
             }
-            if ((valread = read( sd , buffer, 1024)) == 0)
+            if ((valread = read( new_socket , buffer, 1024)) == 0)
             {
 
             }else{
