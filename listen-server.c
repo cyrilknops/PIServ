@@ -13,6 +13,7 @@ void addLog(char message[]){
     c_time_string = ctime(&current_time);
     FILE *json;
     json = fopen("/var/www/html/chat.json","a+");
+    message[strcspn(message, "\r\n")] = 0;
     fprintf(json,"%s: %s",message,c_time_string);
     fclose(json);
 }
