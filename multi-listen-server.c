@@ -162,7 +162,7 @@ int main(int argc , char *argv[])
                 //if position is empty  
                 if( client_socket[i] == 0 )
                 {
-                    char nameMessage[] = "Wat is youw naam?";
+                    char nameMessage[] = "Wat is youw naam?\n";
                     if( send(new_socket, nameMessage, strlen(nameMessage), 0) != strlen(message) )
                     {
                         perror("send");
