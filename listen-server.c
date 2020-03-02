@@ -52,7 +52,7 @@ int main(int argc, char const *argv[])
     }
     while(1) {
         valread = read(new_socket, buffer, 1024);
-        printf("%s\n", buffer);
+        printf("%s", buffer);
        //return 0;
     }
 }
