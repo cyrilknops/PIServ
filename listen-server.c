@@ -5,7 +5,7 @@
 #include <netinet/in.h>
 #include <string.h>
 #define PORT 24055
-void log(char message[]){
+void addLog(char message[]){
     FILE *json;
     json = fopen("/var/www/html/chat.json","r+");
     fprintf(json,"%s\n",message);
@@ -59,7 +59,7 @@ int main(int argc, char const *argv[])
     while(1) {
         valread = read(new_socket, buffer, 1024);
         printf("%s", buffer);
-        log(buffer);
+        addLog(buffer);
        //return 0;
     }
 }
