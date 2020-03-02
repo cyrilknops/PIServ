@@ -149,6 +149,7 @@ int main(int argc , char *argv[])
         for (i = 0; i < max_clients; i++)
         {
             sd = client_socket[i];
+            int user = i;
 
             if (FD_ISSET( sd , &readfds))
             {
@@ -172,7 +173,9 @@ int main(int argc , char *argv[])
                     //of the data read  
                     buffer[valread] = '\0';
                     for (i = 0; i < max_clients; i++) {
-                        send(client_socket[i], buffer, strlen(buffer), 0);
+                        if(i != user) {
+                            send(client_socket[i], buffer, strlen(buffer), 0);
+                        }
                     }
                 }
             }
