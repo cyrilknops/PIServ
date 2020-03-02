@@ -15,14 +15,14 @@
 #define PORT 24055
 
 void addLog(char message[], char ip[]){
-    time_t current_time;
-    char* c_time_string;
-    current_time = time(NULL);
-    c_time_string = ctime(&current_time);
+    char time[1000];
+    time_t t = time(NULL);
+    struct tm * p = localtime(&t);
+    strftime(time, 1000, "%A, %B %d %Y", p);
     FILE *json;
     json = fopen("/var/www/html/chat.json","a+");
     message[strcspn(message, "\r\n")] = 0;
-    fprintf(json,"%s -> %s: %s", ip, message, c_time_string);
+    fprintf(json,"%s @ %s: %s", ip, time, message);
     fclose(json);
 }
 
