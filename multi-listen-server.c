@@ -13,7 +13,7 @@
 #define FALSE  0
 #define PORT 24055
 
-void addLog(char message[], char[]ip){
+void addLog(char message[], char[] ip){
     time_t current_time;
     char* c_time_string;
     current_time = time(NULL);
@@ -21,7 +21,7 @@ void addLog(char message[], char[]ip){
     FILE *json;
     json = fopen("/var/www/html/chat.json","a+");
     message[strcspn(message, "\r\n")] = 0;
-    fprintf(json,"%s: %s",message,c_time_string);
+    fprintf(json,"%s -> %s: %s", ip, message, c_time_string);
     fclose(json);
 }
 
