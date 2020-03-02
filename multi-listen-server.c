@@ -21,7 +21,6 @@ void addLog(char message[], char ip[]){
     strftime(ts, 1000, "%T-%D", p);
     FILE *json;
     json = fopen("/var/www/html/chat.json","a+");
-    ip[strcspn(ip, "\r\n")] = 0;
     fprintf(json,"%s @ %s: %s", ip, ts, message);
     fclose(json);
 }
