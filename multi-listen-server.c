@@ -34,20 +34,7 @@ void *get_in_addr(struct sockaddr *sa)
 
     return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
-void askForName(){
-    char nameMessage[] = "Wat is youw naam?";
-    if( send(new_socket, nameMessage, strlen(nameMessage), 0) != strlen(message) )
-    {
-        perror("send");
-    }
-    if (((valread = read( new_socket , buffer, 1024)) == 0)&& client_nam)
-    {
-        perror("send");
-    }else{
-        buffer[valread] = '\0';
-        send(new_socket, buffer, strlen(buffer), 0);
-    }
-}
+
 int main(int argc , char *argv[])
 {
     int opt = TRUE;
@@ -175,7 +162,19 @@ int main(int argc , char *argv[])
                 //if position is empty  
                 if( client_socket[i] == 0 )
                 {
-                    askForName();
+                    char nameMessage[] = "Wat is youw naam?";
+                    if( send(new_socket, nameMessage, strlen(nameMessage), 0) != strlen(message) )
+                    {
+                        perror("send");
+                    }
+                    if (((valread = read( new_socket , buffer, 1024)) == 0)&& client_nam)
+                    {
+                        perror("send");
+                    }else{
+                        buffer[valread] = '\0';
+                        send(new_socket, buffer, strlen(buffer), 0);
+                    }
+
                     client_socket[i] = new_socket;
                     client_name[i] = buffer;
                     printf("Adding to list of sockets as %d\n" , i);
