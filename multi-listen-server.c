@@ -38,14 +38,14 @@ void *get_in_addr(struct sockaddr *sa)
 int main(int argc , char *argv[])
 {
     int opt = TRUE;
-    int master_socket , addrlen , new_socket , client_socket[30] ,
+    int master_socket , addrlen , new_socket , client_socket[30],
             max_clients = 30 , activity, i , valread , sd;
     int max_sd;
     struct sockaddr_in address;
 
     char buffer[1025];  //data buffer of 1K
     char s[INET6_ADDRSTRLEN];
-
+    char client_name[30][];
     //set of socket descriptors  
     fd_set readfds;
 
@@ -152,7 +152,17 @@ int main(int argc , char *argv[])
             {
                 perror("send");
             }
+            char nameMessage[] = "Wat is youw naam?";
+            if( send(new_socket, nameMessage, strlen(nameMessage), 0) != strlen(message) )
+            {
+                perror("send");
+            }
+            if ((valread = read( sd , buffer, 1024)) == 0)
+            {
 
+            }else{
+                send(new_socket, valread, strlen(valread), 0)
+            }
             puts("Welcome message sent successfully");
 
             //add new socket to array of sockets  
@@ -162,6 +172,7 @@ int main(int argc , char *argv[])
                 if( client_socket[i] == 0 )
                 {
                     client_socket[i] = new_socket;
+                    client_name[i] = valread;
                     printf("Adding to list of sockets as %d\n" , i);
 
                     break;
@@ -196,7 +207,7 @@ int main(int argc , char *argv[])
                     //set the string terminating NULL byte on the end  
                     //of the data read  
                     buffer[valread] = '\0';
-                    addLog(buffer, inet_ntoa(address.sin_addr));
+                    addLog(buffer, client_name[user]);
                     for (i = 0; i < max_clients; i++) {
                         if(i != user) {
                             send(client_socket[i], buffer, strlen(buffer), 0);
