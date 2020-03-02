@@ -54,7 +54,6 @@ int main(void)
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE; // use my IP
     FILE *json;
-    json = fopen("/var/www/html/chat.json","r+");
 
     if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
@@ -109,6 +108,7 @@ int main(void)
     while(1) {  // main accept() loop
         sin_size = sizeof their_addr;
         new_fd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
+
         if (new_fd == -1) {
             perror("accept");
             continue;
@@ -128,12 +128,14 @@ int main(void)
             printf("client send: '%s'\n",buf);
             if (send(new_fd, "Hello, world!", 13, 0) == -1)
                 perror("send");
+            json = fopen("/var/www/html/chat.json","r+");
             fprintf(json,"%s\n",s);
+            fclose(json);
             //close(new_fd);
             //exit(0);
         }
         //close(new_fd);  // parent doesn't need this
     }
-    fclose(json);
+
     return 0;
 }
