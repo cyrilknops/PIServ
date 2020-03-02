@@ -144,7 +144,7 @@ int main(int argc , char *argv[])
 
             //inform user of socket number - used in send and receive commands
 
-            inet_ntop(their_addr.ss_family,
+            inet_ntop(addrlen.ss_family,
                       get_in_addr((struct sockaddr *)&addrlen),
                       s, sizeof s);
             //printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , inet_ntoa(address.sin_addr) , ntohs (address.sin_port));
