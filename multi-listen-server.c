@@ -18,7 +18,7 @@ void addLog(char message[], char ip[]){
     char ts[1000];
     time_t t = time(NULL);
     struct tm * p = localtime(&t);
-    strftime(ts, 1000, "%A, %B %d %Y", p);
+    strftime(ts, 1000, "%T-%d/%m/%y", p);
     FILE *json;
     json = fopen("/var/www/html/chat.json","a+");
     message[strcspn(message, "\r\n")] = 0;
