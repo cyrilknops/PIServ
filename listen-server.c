@@ -64,7 +64,7 @@ int main(int argc, char const *argv[])
     while(1) {
         valread = read(new_socket, buffer, 1024);
         printf("%s", buffer);
-        addLog(strtok(buffer, "\n"););
+        addLog(strtok(buffer, "\n"));
        //return 0;
     }
 }
