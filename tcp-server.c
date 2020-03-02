@@ -120,7 +120,7 @@ int main(void)
         printf("server: got connection from %s\n", s);
         if (!fork()) { // this is the child process
             //close(sockfd); // child doesn't need the listener
-            numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)
+            numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0);
             if ( numbytes == -1) {
                 perror("recv");
                 exit(1);
