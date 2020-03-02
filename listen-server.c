@@ -44,7 +44,7 @@ int main(void) {
     addr_size = sizeof their_addr;
     while(1) {
         new_fd = accept(sockfd, (struct sockaddr *) &their_addr, &addr_size);
-        printf("server: got connection from %s\n", s);
+        printf("server: got connection",);
         numbytes = recv(sockfd, buf, MAXDATASIZE - 1, 0);
         if (numbytes == -1) {
             perror("recv");
