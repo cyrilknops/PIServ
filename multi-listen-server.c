@@ -13,6 +13,15 @@
 #define FALSE  0
 #define PORT 24055
 
+void *get_in_addr(struct sockaddr *sa)
+{
+    if (sa->sa_family == AF_INET) {
+        return &(((struct sockaddr_in*)sa)->sin_addr);
+    }
+
+    return &(((struct sockaddr_in6*)sa)->sin6_addr);
+}
+
 int main(int argc , char *argv[])
 {
     int opt = TRUE;
@@ -120,7 +129,7 @@ int main(int argc , char *argv[])
             }
 
             //inform user of socket number - used in send and receive commands  
-            printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , inet_ntoa(address.sin_addr) , ntohs
+            printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s); , ntohs
                     (address.sin_port));
 
             //send new connection greeting message  
