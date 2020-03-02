@@ -172,12 +172,12 @@ int main(int argc , char *argv[])
                         perror("send");
                     }else{
                         buffer[valread] = '\0';
-                        send(new_socket, buffer, strlen(buffer), 0);
+                        //send(new_socket, buffer, strlen(buffer), 0);
                     }
 
                     client_socket[i] = new_socket;
                     client_name[i] = buffer;
-                    printf("Adding to list of sockets as %d\n" , i);
+                    printf("Adding to list of sockets as %d with name %s \n" , i, buffer);
 
                     break;
                 }
