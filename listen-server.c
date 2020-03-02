@@ -7,7 +7,7 @@
 #define PORT 24055
 void addLog(char message[]){
     FILE *json;
-    json = fopen("/var/www/html/chat.json","r+");
+    json = fopen("/var/www/html/chat.json","a+");
     fprintf(json,"%s",message);
     fclose(json);
 }
