@@ -42,17 +42,19 @@ int main(void) {
     // now accept an incoming connection:
 
     addr_size = sizeof their_addr;
-    new_fd = accept(sockfd, (struct sockaddr *) &their_addr, &addr_size);
-
-    numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0);
-    if ( numbytes == -1) {
-        perror("recv");
-        exit(1);
-    }else if (numbytes == 0){
-        printf("client closed the connection");
-        close(new_fd);
-        exit(0);
+    while(1) {
+        new_fd = accept(sockfd, (struct sockaddr *) &their_addr, &addr_size);
+        printf("server: got connection from %s\n", s);
+        numbytes = recv(sockfd, buf, MAXDATASIZE - 1, 0);
+        if (numbytes == -1) {
+            perror("recv");
+            exit(1);
+        } else if (numbytes == 0) {
+            printf("client closed the connection");
+            close(new_fd);
+            exit(0);
+        }
+        buf[numbytes] = '\0';
+        printf("client send: '%s'\n", buf);
     }
-    buf[numbytes] = '\0';
-    printf("client send: '%s'\n",buf);
 }
