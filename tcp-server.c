@@ -120,9 +120,14 @@ int main(void)
         printf("server: got connection from %s\n", s);
         if (!fork()) { // this is the child process
             //close(sockfd); // child doesn't need the listener
-            if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+            numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)
+            if ( numbytes == -1) {
                 perror("recv");
                 exit(1);
+            }else if (numbytes == 0){
+                printf("client closed the connection");
+                close(new_fd);
+                exit(0);
             }
             buf[numbytes] = '\0';
             printf("client send: '%s'\n",buf);
@@ -131,10 +136,8 @@ int main(void)
             json = fopen("/var/www/html/chat.json","r+");
             fprintf(json,"%s\n",s);
             fclose(json);
-            close(new_fd);
-            exit(0);
         }
-        close(new_fd);  // parent doesn't need this
+        //close(new_fd);  // parent doesn't need this
     }
 
     return 0;
