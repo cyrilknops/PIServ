@@ -8,7 +8,7 @@
 void addLog(char message[]){
     FILE *json;
     json = fopen("/var/www/html/chat.json","r+");
-    fprintf(json,"%s\n",message);
+    fprintf(json,"%s",message);
     fclose(json);
 }
 int main(int argc, char const *argv[])
