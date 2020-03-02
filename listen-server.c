@@ -4,11 +4,16 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <string.h>
+#include <time.h>
 #define PORT 24055
 void addLog(char message[]){
+    time_t current_time;
+    char* c_time_string;
+    current_time = time(NULL);
+    c_time_string = ctime(&current_time);
     FILE *json;
     json = fopen("/var/www/html/chat.json","a+");
-    fprintf(json,"%s",message);
+    fprintf(json,'{"message":"%s","timestamp":"%s"',message,c_time_string);
     fclose(json);
 }
 int main(int argc, char const *argv[])
