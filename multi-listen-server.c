@@ -206,6 +206,7 @@ int main(int argc , char *argv[])
                     addLog(buffer, client_name[user]);
                     for (i = 0; i < max_clients; i++) {
                         if(i != user) {
+                            strcpy(buffer, "\n");
                             send(client_socket[i], buffer, strlen(buffer), 0);
                         }
                     }
