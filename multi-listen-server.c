@@ -25,15 +25,6 @@ void addLog(char message[], char ip[]){
     fprintf(json,"%s @ %s: %s", ip, ts, message);
     fclose(json);
 }
-// get sockaddr, IPv4 or IPv6:
-void *get_in_addr(struct sockaddr *sa)
-{
-    if (sa->sa_family == AF_INET) {
-        return &(((struct sockaddr_in*)sa)->sin_addr);
-    }
-
-    return &(((struct sockaddr_in6*)sa)->sin6_addr);
-}
 
 int main(int argc , char *argv[])
 {
@@ -99,7 +90,7 @@ int main(int argc , char *argv[])
     addrlen = sizeof(address);
     puts("Waiting for connections ...");
 
-    while(TRUE)
+    while(1)
     {
         //clear the socket set  
         FD_ZERO(&readfds);
@@ -169,13 +160,14 @@ int main(int argc , char *argv[])
                     if (((valread = read( new_socket , buffer, 1024)) == 0))
                     {
                         perror("send");
-                    }else{
+                    }
+                    else{
                         buffer[valread] = '\0';
+                        client_name[i] = buffer;
                         //send(new_socket, buffer, strlen(buffer), 0);
                     }
 
                     client_socket[i] = new_socket;
-                    client_name[i] = buffer;
                     printf("Adding to list of sockets as %d with name %s \n" , i, buffer);
 
                     break;
