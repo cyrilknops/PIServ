@@ -216,7 +216,7 @@ int main(int argc , char *argv[])
                     for (i = 0; i < max_clients; i++) {
                         if(i != user) {
                             char m[] = "";
-                            m = client_name[user];
+                            strcpy(m, client_name[user]);
                             strcpy(m,": ");
                             strcpy(m,buffer);
                             send(client_socket[i], m, strlen(m), 0);
