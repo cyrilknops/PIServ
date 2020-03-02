@@ -161,7 +161,7 @@ int main(int argc , char *argv[])
             {
 
             }else{
-                send(new_socket, valread, strlen(valread), 0)
+                send(new_socket, valread, strlen(valread), 0);
             }
             puts("Welcome message sent successfully");
 
