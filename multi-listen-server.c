@@ -34,7 +34,20 @@ void *get_in_addr(struct sockaddr *sa)
 
     return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
-
+void askForName(){
+    char nameMessage[] = "Wat is youw naam?";
+    if( send(new_socket, nameMessage, strlen(nameMessage), 0) != strlen(message) )
+    {
+        perror("send");
+    }
+    if (((valread = read( new_socket , buffer, 1024)) == 0)&& client_nam)
+    {
+        perror("send");
+    }else{
+        buffer[valread] = '\0';
+        send(new_socket, buffer, strlen(buffer), 0);
+    }
+}
 int main(int argc , char *argv[])
 {
     int opt = TRUE;
@@ -44,6 +57,7 @@ int main(int argc , char *argv[])
     struct sockaddr_in address;
 
     char buffer[1025];  //data buffer of 1K
+    char cn[1025];
     char s[INET6_ADDRSTRLEN];
     char *client_name[30];
     //set of socket descriptors  
@@ -152,18 +166,7 @@ int main(int argc , char *argv[])
             {
                 perror("send");
             }
-            char nameMessage[] = "Wat is youw naam?";
-            if( send(new_socket, nameMessage, strlen(nameMessage), 0) != strlen(message) )
-            {
-                perror("send");
-            }
-            if ((valread = read( new_socket , buffer, 1024)) == 0)
-            {
 
-            }else{
-                buffer[valread] = '\0';
-                send(new_socket, buffer, strlen(buffer), 0);
-            }
             puts("Welcome message sent successfully");
 
             //add new socket to array of sockets  
@@ -172,6 +175,7 @@ int main(int argc , char *argv[])
                 //if position is empty  
                 if( client_socket[i] == 0 )
                 {
+                    askForName();
                     client_socket[i] = new_socket;
                     client_name[i] = buffer;
                     printf("Adding to list of sockets as %d\n" , i);
