@@ -64,7 +64,6 @@ int main(int argc, char const *argv[])
     while(1) {
         valread = read(new_socket, buffer, 1024);
         printf("%s", buffer);
-        buffer[strcspn(buffer, "\r\n")] = 0;
         addLog(buffer);
        //return 0;
     }
