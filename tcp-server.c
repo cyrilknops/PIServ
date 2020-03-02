@@ -131,10 +131,10 @@ int main(void)
             json = fopen("/var/www/html/chat.json","r+");
             fprintf(json,"%s\n",s);
             fclose(json);
-            //close(new_fd);
-            //exit(0);
+            close(new_fd);
+            exit(0);
         }
-        //close(new_fd);  // parent doesn't need this
+        close(new_fd);  // parent doesn't need this
     }
 
     return 0;
