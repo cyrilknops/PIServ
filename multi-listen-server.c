@@ -45,7 +45,7 @@ int main(int argc , char *argv[])
 
     char buffer[1025];  //data buffer of 1K
     char s[INET6_ADDRSTRLEN];
-    char client_name[30][];
+    char *client_name[30];
     //set of socket descriptors  
     fd_set readfds;
 
