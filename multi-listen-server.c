@@ -173,7 +173,7 @@ int main(int argc , char *argv[])
                 if( client_socket[i] == 0 )
                 {
                     client_socket[i] = new_socket;
-                    client_name[i] = valread;
+                    client_name[i] = buffer;
                     printf("Adding to list of sockets as %d\n" , i);
 
                     break;
