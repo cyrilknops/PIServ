@@ -79,6 +79,11 @@ int main(void)
             perror("server: bind");
             continue;
         }
+        if (listen(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
+            close(sockfd);
+            perror("server: listen");
+            continue;
+        }
 
         break;
     }
