@@ -13,13 +13,16 @@
 #define FALSE  0
 #define PORT 24055
 
-void *get_in_addr(struct sockaddr *sa)
-{
-    if (sa->sa_family == AF_INET) {
-        return &(((struct sockaddr_in*)sa)->sin_addr);
-    }
-
-    return &(((struct sockaddr_in6*)sa)->sin6_addr);
+void addLog(char message[], char[]ip){
+    time_t current_time;
+    char* c_time_string;
+    current_time = time(NULL);
+    c_time_string = ctime(&current_time);
+    FILE *json;
+    json = fopen("/var/www/html/chat.json","a+");
+    message[strcspn(message, "\r\n")] = 0;
+    fprintf(json,"%s: %s",message,c_time_string);
+    fclose(json);
 }
 
 int main(int argc , char *argv[])
@@ -181,6 +184,7 @@ int main(int argc , char *argv[])
                     //set the string terminating NULL byte on the end  
                     //of the data read  
                     buffer[valread] = '\0';
+                    addLog(buffer, inet_ntoa(address.sin_addr));
                     for (i = 0; i < max_clients; i++) {
                         if(i != user) {
                             send(client_socket[i], buffer, strlen(buffer), 0);
@@ -191,5 +195,5 @@ int main(int argc , char *argv[])
         }
     }
 
-    return 0;
+    //return 0;
 } 
