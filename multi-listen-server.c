@@ -13,7 +13,7 @@
 #define FALSE  0
 #define PORT 24055
 
-void addLog(char message[], char[] ip){
+void addLog(char message[], char ip[]){
     time_t current_time;
     char* c_time_string;
     current_time = time(NULL);
