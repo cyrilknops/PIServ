@@ -12,7 +12,7 @@ int main()
 {
     char buffer[100];
     char *message = "Hello Client";
-    int listenfd, len,i;
+    int listenfd, len;
     struct sockaddr_in servaddr, cliaddr;
     bzero(&servaddr, sizeof(servaddr));
 
@@ -25,18 +25,16 @@ int main()
     // bind server address to socket descriptor
     bind(listenfd, (struct sockaddr*)&servaddr, sizeof(servaddr));
 
-    while(1) {
+    while(1){
         //receive the datagram
         len = sizeof(cliaddr);
         int n = recvfrom(listenfd, buffer, sizeof(buffer),
-                         0, (struct sockaddr *) &cliaddr, &len); //receive message from server
+                         0, (struct sockaddr*)&cliaddr,&len); //receive message from server
         buffer[n] = '\0';
         puts(buffer);
-        if (i < 20 || i > 30){
-            // send the response
-            sendto(listenfd, buffer, sizeof(buffer), 0,
-                   (struct sockaddr *) &cliaddr, sizeof(cliaddr));
-        }
-        i++;
+
+        // send the response
+        sendto(listenfd, buffer, sizeof(buffer), 0,
+               (struct sockaddr*)&cliaddr, sizeof(cliaddr));
     }
 }

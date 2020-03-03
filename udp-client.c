@@ -59,6 +59,8 @@ int main()
         // waiting for response
         if(recvfrom(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr*)NULL, NULL)>0){
             correct++;
+        }else{
+            
         }
         // close the descriptor
         delay(1);
