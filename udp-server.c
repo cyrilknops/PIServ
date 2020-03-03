@@ -4,7 +4,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include<netinet/in.h>
-#define PORT 24050
+#define PORT 24055
 #define MAXLINE 1000
 
 // Driver code
