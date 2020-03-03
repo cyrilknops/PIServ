@@ -201,7 +201,7 @@ int main(int argc , char *argv[])
                     //set the string terminating NULL byte on the end  
                     //of the data read  
                     buffer[valread] = '\0';
-                    addLog(buffer, ntohs(address.sin_port));
+                    addLog(buffer, user);
                     for (i = 0; i < max_clients; i++) {
                         if(i != user) {
                             send(client_socket[i], buffer, strlen(buffer), 0);
