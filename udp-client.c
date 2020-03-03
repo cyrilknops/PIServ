@@ -29,7 +29,7 @@ void delay(int number_of_seconds)
 int main()
 {
     char buffer[100];
-    int i;
+    int correct;
     int sockfd, n;
     struct sockaddr_in servaddr;
 
@@ -48,12 +48,7 @@ int main()
         printf("\n Error : Connect Failed \n");
         exit(0);
     }
-    if(connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)
-    {
-        printf("\n Error : Connect Failed \n");
-        exit(0);
-    }
-    while(1){
+    for(int i = 0; i < 50;i++){
 
         // request to send datagram
         // no need to specify server address in sendto
@@ -61,14 +56,15 @@ int main()
         char arr[1000] = "" ;
         sprintf(arr, "%d", i);
         sendto(sockfd, arr, strlen(arr), 0, (struct sockaddr*)NULL, sizeof(servaddr));
-
         // waiting for response
-        recvfrom(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr*)NULL, NULL);
-        puts(buffer);
+        if(recvfrom(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr*)NULL, NULL)>0){
+            correct++;
+        }
         // close the descriptor
-        i++;
         delay(1);
+
     }
+    printf("%d of the 50 received\n",correct);
     close(sockfd);
 
 
