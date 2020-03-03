@@ -14,14 +14,14 @@
 #define FALSE  0
 #define PORT 24055
 
-void addLog(char message[], char ip[]){
+void addLog(char message[], int ip){
     char ts[1000];
     time_t t = time(NULL);
     struct tm * p = localtime(&t);
     strftime(ts, 1000, "%T-%D", p);
     FILE *json;
     json = fopen("/var/www/html/chat.json","a+");
-    fprintf(json,"%s @ %s: %s", ip, ts, message);
+    fprintf(json,"%d @ %s: %s", ip, ts, message);
     fclose(json);
 }
 
