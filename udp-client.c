@@ -7,6 +7,7 @@
 #include<unistd.h>
 #include<stdlib.h>
 #include <time.h>
+#include<string.h>
 
 #define PORT 24055
 #define MAXLINE 1000
@@ -28,7 +29,7 @@ void delay(int number_of_seconds)
 int main()
 {
     char buffer[100];
-    char *message = "Hello Server";
+    int i;
     int sockfd, n;
     struct sockaddr_in servaddr;
 
@@ -57,14 +58,15 @@ int main()
         // request to send datagram
         // no need to specify server address in sendto
         // connect stores the peers IP and port
-        sendto(sockfd, message, MAXLINE, 0, (struct sockaddr*)NULL, sizeof(servaddr));
+        char arr[1000] = "" ;
+        sprintf(arr, "%d", i);
+        sendto(sockfd, arr, strlen(arr), 0, (struct sockaddr*)NULL, sizeof(servaddr));
 
         // waiting for response
         recvfrom(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr*)NULL, NULL);
         puts(buffer);
-
         // close the descriptor
-
+        i++;
         delay(1);
     }
     close(sockfd);

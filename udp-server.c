@@ -34,7 +34,7 @@ int main()
         puts(buffer);
 
         // send the response
-        sendto(listenfd, message, MAXLINE, 0,
+        sendto(listenfd, buffer, sizeof(buffer), 0,
                (struct sockaddr*)&cliaddr, sizeof(cliaddr));
     }
 }
