@@ -32,7 +32,7 @@ int main()
                          0, (struct sockaddr *) &cliaddr, &len); //receive message from server
         buffer[n] = '\0';
         puts(buffer);
-        if (i < 20 && i > 30){
+        if (i < 20 || i > 30){
             // send the response
             sendto(listenfd, buffer, sizeof(buffer), 0,
                    (struct sockaddr *) &cliaddr, sizeof(cliaddr));
