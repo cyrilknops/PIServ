@@ -25,14 +25,16 @@ int main()
     // bind server address to socket descriptor
     bind(listenfd, (struct sockaddr*)&servaddr, sizeof(servaddr));
 
-    //receive the datagram
-    len = sizeof(cliaddr);
-    int n = recvfrom(listenfd, buffer, sizeof(buffer),
-                     0, (struct sockaddr*)&cliaddr,&len); //receive message from server
-    buffer[n] = '\0';
-    puts(buffer);
+    while(1){
+        //receive the datagram
+        len = sizeof(cliaddr);
+        int n = recvfrom(listenfd, buffer, sizeof(buffer),
+                         0, (struct sockaddr*)&cliaddr,&len); //receive message from server
+        buffer[n] = '\0';
+        puts(buffer);
 
-    // send the response
-    sendto(listenfd, message, MAXLINE, 0,
-           (struct sockaddr*)&cliaddr, sizeof(cliaddr));
+        // send the response
+        sendto(listenfd, buffer, sizeof(buffer), 0,
+               (struct sockaddr*)&cliaddr, sizeof(cliaddr));
+    }
 }
